@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { formatDistanceToNow } from "date-fns";
-import { Plus } from "lucide-react";
-import { getMoodById } from "@/app/lib/moods";
+import Link from 'next/link';
+import { formatDistanceToNow } from 'date-fns';
+import { Plus } from 'lucide-react';
+import { getMoodById } from '@/app/lib/moods';
 
 const colorSchemes = {
   unorganized: {
-    bg: "bg-amber-100 hover:bg-amber-50",
-    tab: "bg-amber-200 group-hover:bg-amber-300",
+    bg: 'bg-rose-100 hover:bg-rose-50',
+    tab: 'bg-rose-200 group-hover:bg-rose-300',
   },
   collection: {
-    bg: "bg-blue-100 hover:bg-blue-50",
-    tab: "bg-blue-200 group-hover:bg-blue-300",
+    bg: 'bg-violet-100 hover:bg-violet-50',
+    tab: 'bg-violet-200 group-hover:bg-violet-300',
   },
   createCollection: {
-    bg: "bg-gray-200 hover:bg-gray-100",
-    tab: "bg-gray-100 hover:bg-gray-50",
+    bg: 'bg-neutral-200 hover:bg-neutral-100',
+    tab: 'bg-neutral-100 hover:bg-neutral-50',
   },
 };
 
@@ -47,9 +47,9 @@ const CollectionPreview = ({
         onClick={onCreateNew}
         className="group relative h-[200px] cursor-pointer"
       >
-        <FolderTab colorClass={colorSchemes["createCollection"].bg} />
+        <FolderTab colorClass={colorSchemes['createCollection'].bg} />
         <div
-          className={`relative h-full rounded-lg p-6 shadow-md hover:shadow-lg transition-all flex flex-col items-center justify-center gap-4 ${colorSchemes["createCollection"].tab}`}
+          className={`relative h-full rounded-lg p-6 shadow-md hover:shadow-lg transition-all flex flex-col items-center justify-center gap-4 ${colorSchemes['createCollection'].tab}`}
         >
           <div className="h-12 w-12 rounded-full bg-gray-200 group-hover:bg-gray-300 flex items-center justify-center">
             <Plus className="h-6 w-6 text-gray-600" />
@@ -62,21 +62,21 @@ const CollectionPreview = ({
 
   return (
     <Link
-      href={`/collection/${isUnorganized ? "unorganized" : id}`}
+      href={`/collection/${isUnorganized ? 'unorganized' : id}`}
       className="group relative"
     >
       <FolderTab
         colorClass={
-          colorSchemes[isUnorganized ? "unorganized" : "collection"].tab
+          colorSchemes[isUnorganized ? 'unorganized' : 'collection'].tab
         }
       />
       <div
         className={`relative rounded-lg p-6 shadow-md hover:shadow-lg transition-all ${
-          colorSchemes[isUnorganized ? "unorganized" : "collection"].bg
+          colorSchemes[isUnorganized ? 'unorganized' : 'collection'].bg
         }`}
       >
         <div className="flex items-center gap-3 mb-4">
-          <span className="text-2xl">{isUnorganized ? "📂" : "📁"}</span>
+          <span className="text-2xl">{isUnorganized ? '📂' : '📁'}</span>
           <h3 className="text-lg font-semibold truncate">{name}</h3>
         </div>
         <div className="space-y-2">

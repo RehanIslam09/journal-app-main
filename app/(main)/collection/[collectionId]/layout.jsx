@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { Suspense } from "react";
-import Loading from "./loading";
+import Link from 'next/link';
+import { Suspense } from 'react';
+import Loading from './loading';
 
 export default function CollectionLayout({ children }) {
   return (
@@ -8,7 +8,7 @@ export default function CollectionLayout({ children }) {
       <div className="mb-8">
         <Link
           href="/dashboard"
-          className="text-sm text-orange-600 hover:text-orange-700"
+          className="text-sm text-rose-600 hover:text-rose-700 transition-colors"
         >
           ← Back to Dashboard
         </Link>

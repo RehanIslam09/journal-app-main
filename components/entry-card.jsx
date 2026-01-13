@@ -1,7 +1,7 @@
-import React from "react";
-import { Card, CardContent } from "./ui/card";
-import Link from "next/link";
-import { format } from "date-fns";
+import React from 'react';
+import { Card, CardContent } from './ui/card';
+import Link from 'next/link';
+import { format } from 'date-fns';
 
 const EntryCard = ({ entry }) => {
   return (
@@ -20,12 +20,12 @@ const EntryCard = ({ entry }) => {
               />
             </div>
             <time className="text-sm text-gray-500">
-              {format(new Date(entry.createdAt), "MMM d, yyyy")}
+              {format(new Date(entry.createdAt), 'MMM d, yyyy')}
             </time>
           </div>
           {entry.collection && (
             <div className="mt-4 flex items-center gap-2">
-              <span className="text-sm px-2 py-1 bg-orange-100 text-orange-800 rounded">
+              <span className="text-sm px-2 py-1 bg-rose-100 text-rose-700 rounded">
                 {entry.collection.name}
               </span>
             </div>

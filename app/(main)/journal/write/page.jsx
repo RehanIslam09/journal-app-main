@@ -1,43 +1,43 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-import dynamic from "next/dynamic";
-import { useForm, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import dynamic from 'next/dynamic';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import useFetch from "@/hooks/use-fetch";
-import { Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
+} from '@/components/ui/select';
+import useFetch from '@/hooks/use-fetch';
+import { Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import {
   createJournalEntry,
   updateJournalEntry,
   getJournalEntry,
   getDraft,
   saveDraft,
-} from "@/actions/journal";
-import { createCollection, getCollections } from "@/actions/collection";
-import { getMoodById, MOODS } from "@/app/lib/moods";
-import { BarLoader } from "react-spinners";
-import { toast } from "sonner";
-import { journalSchema } from "@/app/lib/schemas";
-import "react-quill-new/dist/quill.snow.css";
-import CollectionForm from "@/components/collection-form";
+} from '@/actions/journal';
+import { createCollection, getCollections } from '@/actions/collection';
+import { getMoodById, MOODS } from '@/app/lib/moods';
+import { BarLoader } from 'react-spinners';
+import { toast } from 'sonner';
+import { journalSchema } from '@/app/lib/schemas';
+import 'react-quill-new/dist/quill.snow.css';
+import CollectionForm from '@/components/collection-form';
 
-const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
 export default function JournalEntryPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const editId = searchParams.get("edit");
+  const editId = searchParams.get('edit');
   const [isCollectionDialogOpen, setIsCollectionDialogOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
 
@@ -86,10 +86,10 @@ export default function JournalEntryPage() {
   } = useForm({
     resolver: zodResolver(journalSchema),
     defaultValues: {
-      title: "",
-      content: "",
-      mood: "",
-      collectionId: "",
+      title: '',
+      content: '',
+      mood: '',
+      collectionId: '',
     },
   });
 
@@ -109,24 +109,24 @@ export default function JournalEntryPage() {
   useEffect(() => {
     if (isEditMode && existingEntry) {
       reset({
-        title: existingEntry.title || "",
-        content: existingEntry.content || "",
-        mood: existingEntry.mood || "",
-        collectionId: existingEntry.collectionId || "",
+        title: existingEntry.title || '',
+        content: existingEntry.content || '',
+        mood: existingEntry.mood || '',
+        collectionId: existingEntry.collectionId || '',
       });
     } else if (draftData?.success && draftData?.data) {
       reset({
-        title: draftData.data.title || "",
-        content: draftData.data.content || "",
-        mood: draftData.data.mood || "",
-        collectionId: "",
+        title: draftData.data.title || '',
+        content: draftData.data.content || '',
+        mood: draftData.data.mood || '',
+        collectionId: '',
       });
     } else {
       reset({
-        title: "",
-        content: "",
-        mood: "",
-        collectionId: "",
+        title: '',
+        content: '',
+        mood: '',
+        collectionId: '',
       });
     }
   }, [draftData, isEditMode, existingEntry]);
@@ -136,7 +136,7 @@ export default function JournalEntryPage() {
     if (createdCollection) {
       setIsCollectionDialogOpen(false);
       fetchCollections();
-      setValue("collectionId", createdCollection.id);
+      setValue('collectionId', createdCollection.id);
       toast.success(`Collection ${createdCollection.name} created!`);
     }
   }, [createdCollection]);
@@ -146,17 +146,17 @@ export default function JournalEntryPage() {
     if (actionResult && !actionLoading) {
       // Clear draft after successful publish
       if (!isEditMode) {
-        saveDraftFn({ title: "", content: "", mood: "" });
+        saveDraftFn({ title: '', content: '', mood: '' });
       }
 
       router.push(
         `/collection/${
-          actionResult.collectionId ? actionResult.collectionId : "unorganized"
+          actionResult.collectionId ? actionResult.collectionId : 'unorganized'
         }`
       );
 
       toast.success(
-        `Entry ${isEditMode ? "updated" : "created"} successfully!`
+        `Entry ${isEditMode ? 'updated' : 'created'} successfully!`
       );
     }
   }, [actionResult, actionLoading]);
@@ -175,12 +175,12 @@ export default function JournalEntryPage() {
 
   const handleSaveDraft = async () => {
     if (!isDirty) {
-      toast.error("No changes to save");
+      toast.error('No changes to save');
       return;
     }
     const result = await saveDraftFn(formData);
     if (result?.success) {
-      toast.success("Draft saved successfully");
+      toast.success('Draft saved successfully');
     }
   };
 
@@ -199,21 +199,21 @@ export default function JournalEntryPage() {
     <div className="container mx-auto px-4 py-8">
       <form onSubmit={onSubmit} className="space-y-2  mx-auto">
         <h1 className="text-5xl md:text-6xl gradient-title">
-          {isEditMode ? "Edit Entry" : "What's on your mind?"}
+          {isEditMode ? 'Edit Entry' : "What's on your mind?"}
         </h1>
 
         {isLoading && (
-          <BarLoader className="mb-4" width={"100%"} color="orange" />
+          <BarLoader className="mb-4" width={'100%'} color="#e11d48" />
         )}
 
         <div className="space-y-2">
           <label className="text-sm font-medium">Title</label>
           <Input
             disabled={isLoading}
-            {...register("title")}
+            {...register('title')}
             placeholder="Give your entry a title..."
             className={`py-5 md:text-md ${
-              errors.title ? "border-red-500" : ""
+              errors.title ? 'border-red-500' : ''
             }`}
           />
           {errors.title && (
@@ -228,7 +228,7 @@ export default function JournalEntryPage() {
             control={control}
             render={({ field }) => (
               <Select onValueChange={field.onChange} value={field.value}>
-                <SelectTrigger className={errors.mood ? "border-red-500" : ""}>
+                <SelectTrigger className={errors.mood ? 'border-red-500' : ''}>
                   <SelectValue placeholder="Select a mood..." />
                 </SelectTrigger>
                 <SelectContent>
@@ -250,7 +250,7 @@ export default function JournalEntryPage() {
 
         <div className="space-y-2">
           <label className="text-sm font-medium">
-            {getMoodById(getValues("mood"))?.prompt ?? "Write your thoughts..."}
+            {getMoodById(getValues('mood'))?.prompt ?? 'Write your thoughts...'}
           </label>
           <Controller
             name="content"
@@ -264,11 +264,11 @@ export default function JournalEntryPage() {
                 modules={{
                   toolbar: [
                     [{ header: [1, 2, 3, false] }],
-                    ["bold", "italic", "underline", "strike"],
-                    [{ list: "ordered" }, { list: "bullet" }],
-                    ["blockquote", "code-block"],
-                    ["link"],
-                    ["clean"],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{ list: 'ordered' }, { list: 'bullet' }],
+                    ['blockquote', 'code-block'],
+                    ['link'],
+                    ['clean'],
                   ],
                 }}
               />
@@ -289,7 +289,7 @@ export default function JournalEntryPage() {
             render={({ field }) => (
               <Select
                 onValueChange={(value) => {
-                  if (value === "new") {
+                  if (value === 'new') {
                     setIsCollectionDialogOpen(true);
                   } else {
                     field.onChange(value);
@@ -307,7 +307,7 @@ export default function JournalEntryPage() {
                     </SelectItem>
                   ))}
                   <SelectItem value="new">
-                    <span className="text-orange-600">
+                    <span className="text-rose-600 hover:text-rose-700 transition-colors">
                       + Create New Collection
                     </span>
                   </SelectItem>
@@ -335,7 +335,7 @@ export default function JournalEntryPage() {
             disabled={actionLoading || !isDirty}
           >
             {actionLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {isEditMode ? "Update" : "Publish"}
+            {isEditMode ? 'Update' : 'Publish'}
           </Button>
           {isEditMode && (
             <Button

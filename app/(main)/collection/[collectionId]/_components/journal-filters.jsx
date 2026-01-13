@@ -1,30 +1,30 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+import { useState, useEffect } from 'react';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { format, isSameDay } from "date-fns";
-import { Calendar as CalendarIcon, Search } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { MOODS } from "@/app/lib/moods";
-import EntryCard from "@/components/entry-card";
+} from '@/components/ui/popover';
+import { format, isSameDay } from 'date-fns';
+import { Calendar as CalendarIcon, Search } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { MOODS } from '@/app/lib/moods';
+import EntryCard from '@/components/entry-card';
 
 export function JournalFilters({ entries }) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedMood, setSelectedMood] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedMood, setSelectedMood] = useState('');
   const [date, setDate] = useState(null);
   const [filteredEntries, setFilteredEntries] = useState(entries);
 
@@ -58,8 +58,8 @@ export function JournalFilters({ entries }) {
   }, [entries, searchQuery, selectedMood, date]);
 
   const clearFilters = () => {
-    setSearchQuery("");
-    setSelectedMood("");
+    setSearchQuery('');
+    setSelectedMood('');
     setDate(null);
   };
 
@@ -95,14 +95,14 @@ export function JournalFilters({ entries }) {
         <Popover>
           <PopoverTrigger asChild>
             <Button
-              variant={"outline"}
+              variant={'outline'}
               className={cn(
-                "justify-start text-left font-normal",
-                !date && "text-muted-foreground"
+                'justify-start text-left font-normal',
+                !date && 'text-muted-foreground'
               )}
             >
               <CalendarIcon className="h-4 w-4" />
-              {date ? format(date, "PPP") : <span>Pick a date</span>}
+              {date ? format(date, 'PPP') : <span>Pick a date</span>}
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0">
@@ -119,7 +119,7 @@ export function JournalFilters({ entries }) {
           <Button
             variant="ghost"
             onClick={clearFilters}
-            className="text-orange-600"
+            className="text-rose-600 hover:text-rose-700"
           >
             Clear Filters
           </Button>

@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useEffect, useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   LineChart,
   Line,
@@ -11,30 +11,30 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
-} from "recharts";
-import { getAnalytics } from "@/actions/analytics";
-import { getMoodById, getMoodTrend } from "@/app/lib/moods";
-import { format, parseISO } from "date-fns";
-import useFetch from "@/hooks/use-fetch";
-import MoodAnalyticsSkeleton from "./analytics-loading";
-import { useUser } from "@clerk/nextjs";
+} from 'recharts';
+import { getAnalytics } from '@/actions/analytics';
+import { getMoodById, getMoodTrend } from '@/app/lib/moods';
+import { format, parseISO } from 'date-fns';
+import useFetch from '@/hooks/use-fetch';
+import MoodAnalyticsSkeleton from './analytics-loading';
+import { useUser } from '@clerk/nextjs';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import Link from "next/link";
+} from '@/components/ui/select';
+import Link from 'next/link';
 
 const timeOptions = [
-  { value: "7d", label: "Last 7 Days" },
-  { value: "15d", label: "Last 15 Days" },
-  { value: "30d", label: "Last 30 Days" },
+  { value: '7d', label: 'Last 7 Days' },
+  { value: '15d', label: 'Last 15 Days' },
+  { value: '30d', label: 'Last 30 Days' },
 ];
 
 const MoodAnalytics = () => {
-  const [period, setPeriod] = useState("7d");
+  const [period, setPeriod] = useState('7d');
 
   const {
     loading,
@@ -58,15 +58,22 @@ const MoodAnalytics = () => {
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload?.length) {
-      return (
-        <div className="bg-white p-4 border rounded-lg shadow-lg">
-          <p className="font-medium">
-            {format(parseISO(label), "MMM d, yyyy")}
-          </p>
-          <p className="text-orange-600">Average Mood: {payload[0].value}</p>
-          <p className="text-blue-600">Entries: {payload[1].value}</p>
-        </div>
-      );
+      const CustomTooltip = ({ active, payload, label }) => {
+        if (active && payload?.length) {
+          return (
+            <div className="bg-rose-50/90 p-4 border border-rose-100 rounded-lg shadow-lg backdrop-blur-sm">
+              <p className="font-medium text-neutral-800">
+                {format(parseISO(label), 'MMM d, yyyy')}
+              </p>
+
+              <p className="text-rose-600">Average Mood: {payload[0].value}</p>
+
+              <p className="text-violet-600">Entries: {payload[1].value}</p>
+            </div>
+          );
+        }
+        return null;
+      };
     }
     return null;
   };
@@ -91,10 +98,13 @@ const MoodAnalytics = () => {
       </div>
 
       {analytics.data.entries.length === 0 ? (
-        <div>
-          No Entries Found.{" "}
-          <Link href="/journal/write" className="underline text-orange-400">
-            Write New
+        <div className="text-neutral-600">
+          No entries found.{' '}
+          <Link
+            href="/journal/write"
+            className="underline text-rose-500 hover:text-rose-600 transition-colors"
+          >
+            Write new
           </Link>
         </div>
       ) : (
@@ -139,7 +149,7 @@ const MoodAnalytics = () => {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold flex items-center gap-2">
-                  {getMoodById(stats.mostFrequentMood)?.emoji}{" "}
+                  {getMoodById(stats.mostFrequentMood)?.emoji}{' '}
                   {getMoodTrend(stats.averageScore)}
                 </div>
               </CardContent>
@@ -166,13 +176,13 @@ const MoodAnalytics = () => {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                       dataKey="date"
-                      tickFormatter={(date) => format(parseISO(date), "MMM d")}
+                      tickFormatter={(date) => format(parseISO(date), 'MMM d')}
                     />
                     <YAxis yAxisId="left" domain={[0, 10]} />
                     <YAxis
                       yAxisId="right"
                       orientation="right"
-                      domain={[0, "auto"]}
+                      domain={[0, 'auto']}
                     />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend />
